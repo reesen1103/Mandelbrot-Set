@@ -15,6 +15,7 @@ const float BASE_WIDTH = 4.0;
 const float BASE_HEIGHT = 4.0;
 const float BASE_ZOOM = 0.5;
 
+// Make code easier to type with "using namespace"
 using namespace sf;
 using namespace std;
 
@@ -40,6 +41,10 @@ public:
 	void iterationsToRGB(size_t cont, Uint8& r, Uint8& g, Uint8& b);
 
 	Vector2f mapPixelToCoord(Vector2i mousePixel);
+
+private:
+
+	double m_pixel_size;
 
 
 };
