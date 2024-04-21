@@ -1,3 +1,5 @@
+#ifndef STATE_H
+#define STATE_H
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
@@ -13,7 +15,6 @@ const float BASE_WIDTH = 4.0;
 const float BASE_HEIGHT = 4.0;
 const float BASE_ZOOM = 0.5;
 
-// Make code easier to type with "using namespace"
 using namespace sf;
 using namespace std;
 
@@ -42,3 +43,4 @@ public:
 
 
 };
+#endif
