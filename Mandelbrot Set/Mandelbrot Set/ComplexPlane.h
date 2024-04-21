@@ -19,7 +19,7 @@ using namespace std;
 
 enum class State(CALCULATING, DISPLAYING)
 {
-
+public:
 	ComplexPlane(int pixelWidth, int pixelHeight);
 
 	void draw(RenderTarget & target, RenderStates states);
