@@ -23,28 +23,28 @@ enum class State(CALCULATING, DISPLAYING)
 {
 public:
 	ComplexPlane(int pixelWidth, int pixelHeight);
-
 	void draw(RenderTarget & target, RenderStates states);
-
 	void updateRender();
-
 	void zoomIn();
-
 	void zoomOut();
-
 	void setCenter(Vector2i mousePixel);
-
 	void loadText(Text& text);
-
 	int size_t countIterations(Vector2f coord);
-
 	void iterationsToRGB(size_t cont, Uint8& r, Uint8& g, Uint8& b);
-
 	Vector2f mapPixelToCoord(Vector2i mousePixel);
 
 private:
 
-	double m_pixel_size;
+	VertexArray m_pixel_size;
+	State m_state;
+	Vector2f m_mouseLocation;
+	Vector2i m_pixel_size;
+	Vector2f m_plane_center;
+	Vector2f m_plane_size;
+	int m_zoomCount;
+	float m_aspectRatio;
+
+
 
 
 };
