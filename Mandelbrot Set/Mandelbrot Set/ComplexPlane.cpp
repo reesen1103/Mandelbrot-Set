@@ -12,10 +12,12 @@
 
 ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 {
-	m_pixel_size = static_cast<double>(pixelWidth) / pixelHeight;
+	m_aspectRatio = (pixelWidth) / pixelHeight;
 	m_plane_center = {0,0};
 	m_plane_size = {BASE_WIDTH, BASE_HEIGHT * m_aspectRatio};
 	m_zoomCount = 0;
+	m_State = State::CALCULATING;
+	VertexArray = Points; // Resize it to pixelWidth* pixelHeight??
 	return 0;
 }
 
@@ -32,6 +34,10 @@ void ComplexPlane::updateRender()
 
 void ComplexPlane::zoomIn()
 {
+	m_zoomCount++;
+	int x = BASE_WIDTH * (pow(BASE_ZOOM, m_ZoomCount));
+	int y = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM, m_ZoomCount));
+
 	return 0;
 }
 
