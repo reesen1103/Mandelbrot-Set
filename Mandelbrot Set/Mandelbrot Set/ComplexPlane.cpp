@@ -23,6 +23,10 @@ ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 
 void ComplexPlane::draw(RenderTarget& target, RenderStates states)
 {
+	if (m_State == CALCULATING)
+	{
+		for
+	}
 	target.draw(m_vArray);
 	return 0;
 }
@@ -37,25 +41,43 @@ void ComplexPlane::zoomIn()
 	m_zoomCount++;
 	int x = BASE_WIDTH * (pow(BASE_ZOOM, m_ZoomCount));
 	int y = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM, m_ZoomCount));
-
+	m_plane_size(x, y);
+	m_State(CALCULATING);
 	return 0;
 }
 
 void ComplexPlane::zoomOut()
 {
+	m_zoomCount--;
+	int x = BASE_WIDTH * (pow(BASE_ZOOM, m_ZoomCount));
+	int y = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM, m_ZoomCount));
+	m_plane_size(x, y);
+	m_State(CALCULATING);
 	return 0;
 }
 
 void ComplexPlane::setCenter(Vector2i mousePixel)
 {
+	m_mouseLocation(ComplexPlane::mapPixelToCoords(Vector2f)); 
+	m_State(CALCULATING);
 	return 0;
 }
 
-void ComplexPlane::loadText(Text& text)
+//creates the output which shows coordinates
+//and instructions to the game
+void ComplexPlane::loadText(Text& text)   
 {
-	return 0;
+	text << "Mandelbrot Set " << endl;
+	text << "Center: " << endl; //will show the user the center of the set
+	text << "Cursor: " << endl; //will show the user where the cursor is pointing in the plane
+	text << "Left-click to Zoom in" << endl;
+	text << "Richt-click to Zoom out" << endl;
+
+	return *this;
 }
 
+
+//will count the number of iterations of the set for the given coordinate 
 int size_t ComplexPlane::countIterations(Vector2f coord)
 {
 	return 0;
