@@ -15,6 +15,7 @@ using namespace sf;
 
 ComlexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 {
+	m_pixel_size(pixelWidth, pixelHeight);
 	m_aspectRatio = (pixelWidth) / pixelHeight;
 	m_planeCenter = { 0,0 };
 	m_planeSize = { BASE_WIDTH, BASE_HEIGHT * m_aspectRatio };
@@ -24,9 +25,11 @@ ComlexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 	m_pixelArray.resize(pixelWidth * pixelHeight);
 }
 
-void ComplexPlane::draw(RenderTarget& target, RenderStates states)
+//doesn't this only need only one line of code??
+//only commmented the code it was writ
+void ComplexPlane::draw(RenderTarget& target, RenderStates states) 
 {
-	if (m_state == State::CALCULATING)
+	/*if (m_state == State::CALCULATING)
 	{
 		for (int i = 0; i < m_pixelArray.getVertexCount(); i++)
 		{
@@ -42,7 +45,7 @@ void ComplexPlane::draw(RenderTarget& target, RenderStates states)
 			m_pixelArray[i].color = Color(r, g, b); // update pixel color
 		}
 		m_state = State::DISPLAYING; //set state to displaying after setting the pixel colors
-	}
+	}*/
 	target.draw(m_pixelArray, states); //draw pixel array
 }
 
@@ -106,13 +109,65 @@ void ComplexPlane::loadText(Text& text) // replaced '<<' and endl with '\n' insi
 //will count the number of iterations of the set for the given coordinate 
 int ComplexPlane::countIterations(Vector2f coord)
 {
-	//Count the number of iterations of the set for the given coordinate as specified above
+	if (m_state == State::CALCULATING)
+	{
+		for (int i = 0; i < m_pixelArray.getVertexCount(); i++)
+		{
+			float x = m_pixelArray[i].position.x; // get pixel coordinates
+			float y = m_pixelArray[i].position.y;
+
+			Vector2f coord = mapPixelToCoord(Vector2i(x, y)); // map pixel coords to plane
+
+			int counter = countIterations(coord);
+		}
+		return counter; //return counter
+	}
 }
 
 
-void iterationsToRGB(size_t cont, Uint8& r, Uint8& g, Uint8& b)
+void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
-	//see instructions
+	int mapping = MAX_ITER / 5;
+	int x = count / region;
+	if (count == MAX_ITER)
+	{
+		r = 0;
+		g = 0;
+		b = 0;
+		return;
+	}
+	else
+	{
+		switch (x)
+		{
+		case 0:
+			r = 128;
+			g = 0;
+			b = 128 + (count % region) * (127 / region);
+			break;
+		case 1:
+			r = 0;
+			g = 0;
+			b = 128 + (count % region) * (127 / region);
+			break;
+		case 2:
+			r = 0;
+			g = 128 + (count % region) * (127 / region);
+			b = 0;
+			break;
+		case 3:
+			r = 255 - (count % region) * (127 / region);
+			g = 0;
+			b = 255 - (count % region) * (127 / region);
+			break;
+		default:
+			r = 255;
+			g = 0;
+			b = 0;
+			break;
+
+		}
+	}
 }
 
 Vector2f mapPixelToCoord(Vector2i mousePixel)
