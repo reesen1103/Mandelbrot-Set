@@ -30,12 +30,12 @@ public:
 	void updateRender();
 	void zoomIn(int x, int y);
 	void zoomOut(int x, int y);
-	void setMouseLocation(int x, int y);
+	void setMouseLocation(Vector2i mousePixel);
 	void setCenter(Vector2i mousePixel);
 	void loadText(Text& text);
-	int countIterations(Vector2f coord);
-	void iterationsToRGB(int cont, Uint8& r, Uint8& g, Uint8& b);
-	Vector2f mapPixelToCoord(Vector2i mousePixel);
+	size_t countIterations(Vector2f coord) const;
+	void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) const;
+	Vector2f mapPixelToCoord(Vector2i mousePixel) const;
 
 private:
 
