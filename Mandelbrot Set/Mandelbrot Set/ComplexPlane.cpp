@@ -13,7 +13,7 @@
 using namespace std;
 using namespace sf;
 
-ComlexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
+ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 {
 	m_pixel_size(pixelWidth, pixelHeight);
 	m_aspectRatio = (pixelWidth) / pixelHeight;
@@ -109,8 +109,6 @@ void ComplexPlane::loadText(Text& text) // replaced '<<' and endl with '\n' insi
 //will count the number of iterations of the set for the given coordinate 
 int ComplexPlane::countIterations(Vector2f coord)
 {
-	if (m_state == State::CALCULATING)
-	{
 		for (int i = 0; i < m_pixelArray.getVertexCount(); i++)
 		{
 			float x = m_pixelArray[i].position.x; // get pixel coordinates
@@ -120,8 +118,7 @@ int ComplexPlane::countIterations(Vector2f coord)
 
 			int counter = countIterations(coord);
 		}
-		return counter; //return counter
-	}
+		
 }
 
 
